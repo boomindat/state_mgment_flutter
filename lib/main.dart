@@ -4,7 +4,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  static const String _title = 'Flutter Stateful Clicker Counter';
+  static const String _title = 'Flutter Stateful Clicker Counter first app';
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -89,4 +89,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
