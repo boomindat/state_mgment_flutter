@@ -2,11 +2,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:statemanagement/business_logic/cubits/counter_cubit.dart';
-import 'package:statemanagement/presentation/router/app_router.dart';
-import 'package:statemanagement/presentation/screens/main_screen.dart';
-import 'package:statemanagement/presentation/screens/second_screen.dart';
-import 'package:statemanagement/presentation/screens/third_screen.dart';
+import 'business_logic/cubits/counter_cubit.dart';
+import 'presentation/router/app_router.dart';
+import 'presentation/screens/main_screen.dart';
+import 'presentation/screens/second_screen.dart';
+import 'presentation/screens/third_screen.dart';
 
 import 'business_logic/cubits/internet_cubit.dart';
 

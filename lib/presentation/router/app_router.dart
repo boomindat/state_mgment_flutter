@@ -2,9 +2,9 @@ import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:statemanagement/business_logic/cubits/counter_cubit.dart';
-import 'package:statemanagement/presentation/screens/second_screen.dart';
-import 'package:statemanagement/presentation/screens/third_screen.dart';
+import '/business_logic/cubits/counter_cubit.dart';
+import '/presentation/screens/second_screen.dart';
+import '/presentation/screens/third_screen.dart';
 
 import '../screens/main_screen.dart';
 

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:statemanagement/constant/enums.dart';
+import '/constant/enums.dart';
 
 part 'internet_state.dart';
 

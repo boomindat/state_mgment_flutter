@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:statemanagement/business_logic/cubits/counter_cubit.dart';
-import 'package:statemanagement/presentation/screens/second_screen.dart';
+import '/business_logic/cubits/counter_cubit.dart';
+import '/presentation/screens/second_screen.dart';
 
 class MyHome extends StatefulWidget {
   final String title;

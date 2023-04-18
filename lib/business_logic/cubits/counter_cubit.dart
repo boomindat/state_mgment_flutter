@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
-import 'package:statemanagement/business_logic/cubits/internet_cubit.dart';
-import 'package:statemanagement/constant/enums.dart';
+import '/business_logic/cubits/internet_cubit.dart';
+import '/constant/enums.dart';
 part "counter_state.dart";
 
 class CounterCubit extends Cubit<CounterState> {
