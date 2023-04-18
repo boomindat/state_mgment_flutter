@@ -1,106 +1,94 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:statemanagement/cubit/counter_cubit.dart';
+import 'package:statemanagement/business_logic/cubits/counter_cubit.dart';
+import 'package:statemanagement/presentation/router/app_router.dart';
+import 'package:statemanagement/presentation/screens/main_screen.dart';
+import 'package:statemanagement/presentation/screens/second_screen.dart';
+import 'package:statemanagement/presentation/screens/third_screen.dart';
+
+import 'business_logic/cubits/internet_cubit.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp(
+    appRouter: AppRouter(),
+    connectivity: Connectivity(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final AppRouter appRouter;
+  final Connectivity connectivity;
+
+  const MyApp({
+    Key? key,
+    required this.appRouter,
+    required this.connectivity,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CounterCubit>(
-        create: (context) => CounterCubit(),
-        child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: "Counter Cubit",
-            theme: ThemeData.dark(),
-            home: MyHome(title: "flutter demo home page".toUpperCase())));
-  }
-}
-
-class MyHome extends StatefulWidget {
-  final String title;
-  const MyHome({Key? key, required this.title}) : super(key: key);
-  _MyHomeState createState() => _MyHomeState();
-}
-
-class _MyHomeState extends State<MyHome> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Icon(Icons.menu_book_outlined),
-        title: Text("Counter"),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<InternetCubit>(
+          create: (context) => InternetCubit(connectivity: connectivity),
+        ),
+        BlocProvider<CounterCubit>(
+          create: (context) => CounterCubit(
+              internetCubit: BlocProvider.of<InternetCubit>(context)),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        onGenerateRoute: appRouter.onGenerateRoute,
       ),
-      // body: BlocListener<CounterCubit, CounterState>(
-      //   listener: (context, state) {
-      //     if (state.wasIncremented) {
-      //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //         content: Text("Incremented"),
-      //         duration: Duration(seconds: 2),
-      //       ));
-      //     } else {
-      //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //         content: Text("Decremented"),
-      //         duration: Duration(seconds: 2),
-      //       ));
-      //     }
-      //   },
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text("You have pushed the button this many times"),
-          BlocConsumer<CounterCubit, CounterState>(
-            listener: (context, state) {
-              if (state.wasIncremented) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text("Incremented"),
-                  duration: Duration(milliseconds: 200),
-                ));
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text("Decremented"),
-                  duration: Duration(milliseconds: 200),
-                ));
-              }
-            },
-            builder: (context, state) {
-              return Text(state.counterValue.toString(),
-                  style: Theme.of(context).textTheme.headline4);
-            },
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              FloatingActionButton(
-                onPressed: () {
-                  BlocProvider.of<CounterCubit>(context).decrement();
-                  // context.bloc<CounterCubit>().decrement();
-                },
-                tooltip: "Decrement",
-                child: Icon(Icons.arrow_left),
-              ),
-              FloatingActionButton(
-                onPressed: () {
-                  BlocProvider.of<CounterCubit>(context).increment();
-                },
-                tooltip: "Increment",
-                child: Icon(Icons.arrow_right),
-              ),
-            ],
-          )
-        ],
-      )),
     );
-    ;
   }
 }
+// void main() {
+//   runApp(MyApp());
+// }
 
-// abstract class CounterEvent {}
+// class MyApp extends StatefulWidget {
+//   const MyApp({Key? key}) : super(key: key);
+//   _MyAppState createState() => _MyAppState();
+// }
+
+// class _MyAppState extends State<MyApp> {
+//   final AppRouter _appRouter = AppRouter();
+//   // final CounterCubit _counterCubit = CounterCubit();
+//   @override
+//   void dispose() {
+//     // _counterCubit.close();
+//     _appRouter.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: "Counter Cubit",
+//       theme: ThemeData.dark(),
+//       onGenerateRoute: _appRouter.onGenerateRoute,
+//       //named routing inside material app
+//       // routes: {
+//       //   '/': (context) => BlocProvider<CounterCubit>.value(
+//       //       value: _counterCubit, child: MyHome(title: "Demo page")),
+//       //   '/second': (context) => BlocProvider<CounterCubit>.value(
+//       //       value: _counterCubit,
+//       //       child: secondScreen(
+//       //         title: "Demo Page 2",
+//       //       ))
+//       // });
+//     );
+//   }
+// }
 
 // class Increment extends CounterEvent {}
 

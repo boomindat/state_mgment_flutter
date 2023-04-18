@@ -25,6 +25,7 @@ dependencies:
   bloc_test: ^9.1.1
   equatable: ^2.0.5
   bdd_widget_test: ^1.4.3
+  connectivity_plus: ^3.0.4
 
 dev_dependencies:
   flutter_test:
